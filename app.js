@@ -2,19 +2,6 @@ var request = require('request');
 
 let url = 'http://api.football-data.org/v1/competitions';
 
-
-var getAllComps = function(id,info){
-  if(id){
-    url += "/" + id + "/" + info;
-  }
-  request(url, function (error, response, body) {
-    if(error){
-      return console.error("An error occurred: " + error)
-    }
-    console.log('body:', body);
-  })
-}
-
 var getComp = function(id){
   request(url + "/" + id, function (error, response, body) {
     if(error){
@@ -34,5 +21,18 @@ var getTeams = function(id) {
   })
 }
 
-
-getAllComps(457, "teams")
+var getAllComps = function(id,info,includeTeams){
+  if(id){
+    url += "/" + id + "/" + info;
+  }
+  request(url, function (error, response, body) {
+    var results = body;
+    if(error){
+      return console.error("An error occurred: " + error)
+    }
+    if(includeTeams){
+      return console.log(results)
+    }
+    return console.log(JSON.parse(body));
+  })
+}
