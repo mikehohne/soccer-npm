@@ -5,13 +5,14 @@ exports.getTeams = function(id) {
   var url = "http://api.football-data.org/v1/teams"
   request(url + "/" + id, function (error, response, body) {
     if(error){
-      return console.error("An error occurred: " + error)
+      return console.error("An error occurred: " + error);
     }
     console.log('body:', body);
-    })
-  },
+  })
+},
 
 exports.getAllComps = function(id,info,includeTeams){
+  var url = "http://api.football-data.org/v1/competitions"
   if(id){
     url += "/" + id + "/" + info;
   }
